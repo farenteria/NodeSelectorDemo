@@ -1,9 +1,27 @@
 <html>
     <head>
-
+        <meta charset="utf-8">
+        <title>City lookup</title>
     </head>
     <body>
+        <h1>City Selector</h1>
         
-        sdgf
+        <div class="dropdown">
+            <button>Select Country</button>
+            <!-- Display each country as a link within dropdown menu -->
+            <div id="cDropdown">
+                <% countries.forEach((country) => { %>
+                    <a href="#"><%= country %></a>
+                <% }); %>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button>Select State</button>
+        </div>
+
+        <div class="dropdown">
+            <button>Select City</button>
+        </div>
     </body>
 </html>
