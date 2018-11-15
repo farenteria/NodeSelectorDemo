@@ -2,14 +2,15 @@
     <head>
         <meta charset="utf-8">
         <title>City lookup</title>
+        <link rel="stylesheet" href="./style/style.css">
     </head>
     <body>
         <h1>City Selector</h1>
         
         <div class="dropdown">
-            <button>Select Country</button>
+            <button class="drop-btn" id="btn">Select Country</button>
             <!-- Display each country as a link within dropdown menu -->
-            <div id="cDropdown">
+            <div id="count-dropdown" class="dropdown-content">
                 <% countries.forEach((country) => { %>
                     <a href="#"><%= country %></a>
                 <% }); %>
@@ -23,5 +24,7 @@
         <div class="dropdown">
             <button>Select City</button>
         </div>
+
+        <script src="./js/dropdown.js"></script>
     </body>
 </html>
