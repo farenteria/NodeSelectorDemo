@@ -21,10 +21,14 @@ function getLocations(){
     });
 }
 
-// GET ROUTES
+// ROUTES
 app.get("/", (req, res) => {
     getLocations();
     res.render("index", {countries: countries});
+});
+
+app.post("/", (req, res) => {
+    console.log(req.body);
 });
 
 // Server initialization

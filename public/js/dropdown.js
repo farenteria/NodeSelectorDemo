@@ -1,5 +1,10 @@
-let countDropdown = document.getElementById("btn");
+let countSel = document.getElementById("count-select");
 
-countDropdown.addEventListener("click", () => {
-    document.getElementById("count-dropdown").classList.toggle("show");
-});
+// will listen for a change within the dropdown menu
+document.addEventListener("DOMContentLoaded", function(){
+    countSel.onchange=changeEventHandler;
+}, false);
+
+function changeEventHandler(event){
+    console.log(event.target.value);
+}
