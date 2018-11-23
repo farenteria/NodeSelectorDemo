@@ -10,27 +10,10 @@ document.addEventListener("DOMContentLoaded", function(){
 
 // get states
 function changeEventHandler(event){
-    console.log(event.target.value);
-
-    // let oReq = new XMLHttpRequest();
-    // oReq.open("GET", 'localhost:8081/data');
-    // oReq.send(event.target.value);
     $.get(`/country/${event.target.value}`, function(data, status){
         console.log("sent", data, status);
     }).done((data) => {
-        console.log("done", data);
-        // remove old children
-        while(stateSel.firstChild){
-            stateSel.removeChild(stateSel.firstChild);
-        }
-
-        data.states.forEach(state => {
-            let option = document.createElement("option");
-            let content = document.createTextNode(state);
-            option.appendChild(content);
-
-            stateSel.appendChild(option);
-        });
+        updateOptionElement(data.states, stateSel);
     });
 }
 
@@ -38,17 +21,21 @@ function changeEventHandler(event){
 function stateChangeHandler(event){
     $.get(`/state/${event.target.value}`, function(data, status){
         console.log("sent", data, status);
-    }).done((data) => {
-        while(citySelect.firstChild){
-            citySelect.removeChild(citySelect.firstChild);
-        }
+    }).done((data) => {        
+        updateOptionElement(data.cities, citySelect);
+    });
+}
 
-        data.cities.forEach(state => {
-            let option = document.createElement("option");
-            let content = document.createTextNode(state);
-            option.appendChild(content);
+// remove old selections and insert newest additions based on ajax request
+function updateOptionElement(locations, selectElement){
+    while(selectElement.firstChild){
+        selectElement.removeChild(selectElement.firstChild);
+    }
 
-            citySelect.appendChild(option);
-        });
+    locations.forEach(location => {
+        let option = document.createElement("option");
+        let content = document.createTextNode(location);
+        option.appendChild(content);
+        selectElement.appendChild(option);
     });
 }
