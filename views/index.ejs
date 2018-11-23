@@ -7,20 +7,32 @@
     <body>
         <h1>City Selector</h1>
 
-        <select id="count-select">
-            <% countries.forEach((country) => { %>
-                <option value="<%= country %>"><%= country %></option>
-            <% }); %>
-        </select>
+        <form id="location-form" action="/" method="POST">
+            <select id="count-select" form="location-form">
+                <% countries.forEach((country) => { %>
+                    <option value="<%= country %>"><%= country %></option>
+                <% }); %>
+            </select>
+    
+            <select id="state-select">
+                <% states.forEach((state) => { %>
+                    <option value="<%= state %>"><%= state %></option>
+                <% }); %>
+            </select>
+    
+            <select id="city-select">
+                <% cities.forEach((city) => { %>
+                    <option value="<%= city %>"><%= city %></option>
+                <% }); %>
+            </select>
 
-        <!-- <div class="dropdown">
-            <button>Select State</button>
-        </div>
+            <button id="sub-but">Submit</button>
+        </form>
 
-        <div class="dropdown">
-            <button>Select City</button>
-        </div> -->
-
+        <script
+			  src="https://code.jquery.com/jquery-3.3.1.min.js"
+			  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+			  crossorigin="anonymous"></script>
         <script src="./js/dropdown.js"></script>
     </body>
 </html>

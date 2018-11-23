@@ -17,3 +17,8 @@
 .show{
     display: block;
 }
+
+select{
+    display: block;
+    margin: 20px;
+}
