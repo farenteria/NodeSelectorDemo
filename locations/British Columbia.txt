@@ -1,0 +1,10 @@
+Burnaby
+Colwood
+Cranbrook
+Delta
+Penticton
+Langley
+Surrey
+Vancouver
+Vernon
+Victoria

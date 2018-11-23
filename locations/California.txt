@@ -1,0 +1,10 @@
+Anaheim
+Bakersfield
+Fresno
+Long Beach
+Los Angeles
+Oakland
+Sacramento
+San Diego
+San Francisco
+San Jose
