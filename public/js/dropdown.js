@@ -1,14 +1,14 @@
 let countSel = document.getElementById("count-select");
 let stateSel = document.getElementById("state-select");
-let dropdownForm = document.getElementById("location-form");
-let dropButton = document.getElementById("sub-but");
+let citySelect = document.getElementById("city-select");
 
 // will listen for a change within the dropdown menu
 document.addEventListener("DOMContentLoaded", function(){
     countSel.onchange=changeEventHandler;
-    stateSel.onchange=changeEventHandler;
+    stateSel.onchange=stateChangeHandler;
 }, false);
 
+// get states
 function changeEventHandler(event){
     console.log(event.target.value);
 
@@ -17,15 +17,38 @@ function changeEventHandler(event){
     // oReq.send(event.target.value);
     $.get(`/country/${event.target.value}`, function(data, status){
         console.log("sent", data, status);
-    }).done(() => {
-        window.location.href = "/";
-    });;
+    }).done((data) => {
+        console.log("done", data);
+        // remove old children
+        while(stateSel.firstChild){
+            stateSel.removeChild(stateSel.firstChild);
+        }
+
+        data.states.forEach(state => {
+            let option = document.createElement("option");
+            let content = document.createTextNode(state);
+            option.appendChild(content);
+
+            stateSel.appendChild(option);
+        });
+    });
 }
 
-function updateSelects(){
-    
-}
+// get cities
+function stateChangeHandler(event){
+    $.get(`/state/${event.target.value}`, function(data, status){
+        console.log("sent", data, status);
+    }).done((data) => {
+        while(citySelect.firstChild){
+            citySelect.removeChild(citySelect.firstChild);
+        }
 
-function exListener(){
-    // console.log(this.responseText);
+        data.cities.forEach(state => {
+            let option = document.createElement("option");
+            let content = document.createTextNode(state);
+            option.appendChild(content);
+
+            citySelect.appendChild(option);
+        });
+    });
 }
