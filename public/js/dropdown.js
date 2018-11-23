@@ -1,15 +1,12 @@
 let countSel = document.getElementById("count-select");
+let stateSel = document.getElementById("state-select");
 let dropdownForm = document.getElementById("location-form");
 let dropButton = document.getElementById("sub-but");
-
-dropButton.addEventListener("click", (event) => {
-    // event.preventDefault();
-});
-
 
 // will listen for a change within the dropdown menu
 document.addEventListener("DOMContentLoaded", function(){
     countSel.onchange=changeEventHandler;
+    stateSel.onchange=changeEventHandler;
 }, false);
 
 function changeEventHandler(event){
@@ -18,9 +15,15 @@ function changeEventHandler(event){
     // let oReq = new XMLHttpRequest();
     // oReq.open("GET", 'localhost:8081/data');
     // oReq.send(event.target.value);
-    $.get(`/data:${event.target.value}`, function(data, status){
+    $.get(`/country/${event.target.value}`, function(data, status){
         console.log("sent", data, status);
-    });
+    }).done(() => {
+        window.location.href = "/";
+    });;
+}
+
+function updateSelects(){
+    
 }
 
 function exListener(){

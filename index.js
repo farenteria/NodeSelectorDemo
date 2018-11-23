@@ -19,32 +19,50 @@ app.use(bodyParser.urlencoded({extended: false}));
 // app.use(bodyParser.json());
 
 // File Reading
-function getLocations(){
-    fs.readFile("./public/Countries.txt", {encoding: "utf-8"}, (err, data) => {
+function getLocations(location, type, res){
+    fs.readFile(`./locations/${location}.txt`, {encoding: "utf-8"}, (err, data) => {
         if(!err){
             // Only one location per line in text file!
-            countries = data.split("\n");
-        }
-    });
+            let result = data.split("\n");
 
-    fs.readFile("./public/CanadaStates.txt", {encoding: "utf-8"}, (err, data) => {
-        if(!err){
-            // Only one location per line in text file!
-            states = data.split("\n");
+            switch(type){
+                case "country":
+                    countries = data.split("\n");
+                    // res.send(countries);
+                    break;
+                case "state":
+                    states = data.split("\n");
+                    res.send(states);
+                    break;   
+                case "city":
+                    cities = data.split("\n");
+                    break;
+            }
         }
     });
 }
 
 // ROUTES
 app.get("/", (req, res) => {
-    getLocations();
-    console.log('From get, req.body is:', req.body);
+    getLocations("Countries", "country");
     res.render("index", {countries: countries, states: states, cities: cities});
 });
 
-app.get("/:location", (req, res) => {
-    console.log("/:location get", req.params.location);
-    res.send("here you go");
+app.get("/country/:name", (req, res) => {
+    console.log("/:country get", req.params.name);
+
+    // set and return the apporpriate states for that country
+    getLocations(req.params.name, "state", res);
+});
+
+app.get("/state/:state", (req, res) => {
+    console.log("/:state get", req.params.state);
+    getLocations(req.params.name, "city", res);
+});
+
+app.get("/city/:city", (req, res) => {
+    console.log("/:city get", req.params.city);
+    res.send("city");
 });
 
 // Server initialization
