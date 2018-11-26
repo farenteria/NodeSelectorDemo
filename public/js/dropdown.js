@@ -13,6 +13,7 @@ function changeEventHandler(event){
     $.get(`/country/${event.target.value}`, function(data, status){
         console.log("sent", data, status);
     }).done((data) => {
+        clearOptionElement(citySelect);
         updateOptionElement(data.states, stateSel);
     });
 }
@@ -26,11 +27,16 @@ function stateChangeHandler(event){
     });
 }
 
-// remove old selections and insert newest additions based on ajax request
-function updateOptionElement(locations, selectElement){
+// remove old selections
+function clearOptionElement(selectElement){
     while(selectElement.firstChild){
         selectElement.removeChild(selectElement.firstChild);
     }
+}
+
+// remove old selections and insert newest additions based on ajax request
+function updateOptionElement(locations, selectElement){
+    clearOptionElement(selectElement);
 
     locations.forEach(location => {
         let option = document.createElement("option");
